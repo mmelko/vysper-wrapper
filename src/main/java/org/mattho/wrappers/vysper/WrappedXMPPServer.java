@@ -48,6 +48,12 @@ public class WrappedXMPPServer {
             Entity user3 = EntityImpl.parseUnchecked("camel_producer1@apache.camel");
             accountManagement.addUser(user3, "secret");
 
+            Entity user4 = EntityImpl.parseUnchecked("consumer@apache.camel");
+            accountManagement.addUser(user4, "secret");
+
+            Entity user5 = EntityImpl.parseUnchecked("producer@apache.camel");
+            accountManagement.addUser(user5, "secret");
+
             xmppServer.setStorageProviderRegistry(providerRegistry);
 
             endpoint = new TCPEndpoint();
@@ -68,8 +74,10 @@ public class WrappedXMPPServer {
             Conference conference = new Conference("test conference");
             conference.createRoom(EntityImpl.parseUnchecked("camel-anon@apache.camel"), "camel-anon", RoomType.FullyAnonymous);
             conference.createRoom(EntityImpl.parseUnchecked("camel-test@apache.camel"), "camel-test", RoomType.Public);
+            conference.createRoom(EntityImpl.parseUnchecked("anon@apache.camel"), "anon", RoomType.FullyAnonymous);
+            conference.createRoom(EntityImpl.parseUnchecked("test@apache.camel"), "test", RoomType.Public);
             xmppServer.addModule(new MUCModule("conference", conference));
-         //   endpoint.start();
+       
         } catch (Exception e) {
             throw new RuntimeException("An error occurred when initializing the XMPP Test Server.", e);
         }
